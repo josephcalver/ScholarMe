@@ -1,0 +1,78 @@
+@CHARSET "UTF-8";
+
+.navbar .navbar-brand {
+	font-size: x-large;
+}
+
+.navbar .navbar-nav {
+	padding-top: 3px;
+}
+
+.navbar .btn {
+	color: white;
+	border-color: white;
+}
+
+
+#content {
+	padding-top: 100px;
+}
+
+.page-heading {
+	text-align: center;
+}
+
+textarea {
+	width: 100%;
+}
+
+.errors {
+	color: red;
+}
+
+.pagination {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.homepage-status {
+	text-align: center;
+	margin-top: 30px;
+	font-size: larger;
+}
+
+.edit-links {
+	margin-top: 10px;
+	text-align: right;
+}
+
+.login-error {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: red;
+}
+
+.message {
+	font-size: larger;
+	margin-top: 50px;
+	color: red;
+}
+
+.profile-about {
+	width: 100%;
+	border: 1px solid gray;
+	padding: 50px;
+	overflow: auto;
+}
+
+.profile-img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.profile-about-edit {
+	position: absolute;
+	bottom: 0px;
+	right: 50px;
+}
