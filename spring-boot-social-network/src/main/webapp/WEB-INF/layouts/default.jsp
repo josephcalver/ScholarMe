@@ -50,8 +50,13 @@
 	</nav>
 
 	<div class="container">
-		<tiles:insertAttribute name="content" />
+
+		<div id="content">
+			<tiles:insertAttribute name="content" />
+		</div>
+
 	</div>
+
 
 	<!-- jQuery first, then Tether, then Bootstrap JS. -->
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
