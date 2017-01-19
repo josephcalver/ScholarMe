@@ -1,4 +1,4 @@
-package com.josephcalver.controllers;
+package com.josephcalver.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

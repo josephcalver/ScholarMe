@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +14,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.josephcalver.models.StatusUpdate;
-import com.josephcalver.models.StatusUpdateDao;
+import com.josephcalver.model.StatusUpdate;
+import com.josephcalver.model.StatusUpdateDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
+@Transactional
 public class StatusTest {
-	
+
 	@Autowired
 	private StatusUpdateDao statusUpdateDao;
 
@@ -28,7 +31,7 @@ public class StatusTest {
 		StatusUpdate status = new StatusUpdate("This is a test status update!");
 
 		statusUpdateDao.save(status);
-		
+
 		assertNotNull("Non-null ID", status.getId());
 		assertNotNull("Non-null Date", status.getAdded());
 
