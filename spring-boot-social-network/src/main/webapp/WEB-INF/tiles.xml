@@ -18,5 +18,9 @@
 	<definition name="addstatus" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/addstatus.jsp" />
 	</definition>
+	
+	<definition name="viewstatus" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/viewstatus.jsp" />
+	</definition>
 
 </tiles-definitions>

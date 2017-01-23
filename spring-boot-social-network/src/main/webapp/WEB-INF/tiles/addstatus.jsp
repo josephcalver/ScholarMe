@@ -9,6 +9,9 @@
 	<h4 class="card-header">Add a Status Update</h4>
 	<div class="card-block">
 		<form:form modelAttribute="statusUpdate">
+			<div class="errors">
+				<form:errors path="text" />
+			</div>
 			<div class="form-group">
 				<form:textarea path="text" name="text" rows="10" cols="50"></form:textarea>
 			</div>
@@ -19,7 +22,9 @@
 <br />
 <div class="card">
 	<h4 class="card-header">
-		Status Update added on: <fmt:formatDate pattern="EEEE d MMMM y 'at' H:mm:s" value="${latestStatusUpdate.added}" />
+		Status Update added on:
+		<fmt:formatDate pattern="EEEE d MMMM y 'at' H:mm:s"
+			value="${latestStatusUpdate.added}" />
 	</h4>
 	<div class="card-block">
 		<c:out value="${latestStatusUpdate.text}" />
