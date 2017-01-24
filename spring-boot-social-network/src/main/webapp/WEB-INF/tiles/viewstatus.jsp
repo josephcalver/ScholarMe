@@ -7,10 +7,13 @@
 <c:url var="url" value="/viewstatus" />
 
 
-<jdc:pagination page="${page}" url="${url}" size="10"/>
+<jdc:pagination page="${page}" url="${url}" size="10" />
 
 
 <c:forEach var="statusUpdate" items="${page.content}">
+
+	<c:url var="editLink" value="/editstatus?id=${statusUpdate.id}" />
+	<c:url var="deleteLink" value="/deletestatus?id=${statusUpdate.id}" />
 
 	<div class="card">
 		<h4 class="card-header">
@@ -19,7 +22,12 @@
 				value="${statusUpdate.added}" />
 		</h4>
 		<div class="card-block">
-			<c:out value="${statusUpdate.text}" />
+			<div>${statusUpdate.text}</div>
+			<div class="edit-links pull-right">
+				<a href="${editLink}">Edit</a> | <a
+					onclick="return confirm('Are you sure you want to delete this status update?');"
+					href="${deleteLink}">Delete</a>
+			</div>
 		</div>
 	</div>
 

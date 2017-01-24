@@ -14,13 +14,17 @@
 	<definition name="about" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/about.jsp" />
 	</definition>
-	
+
 	<definition name="addstatus" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/addstatus.jsp" />
 	</definition>
-	
+
 	<definition name="viewstatus" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/viewstatus.jsp" />
+	</definition>
+
+	<definition name="editstatus" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/editstatus.jsp" />
 	</definition>
 
 </tiles-definitions>

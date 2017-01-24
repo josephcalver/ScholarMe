@@ -12,7 +12,7 @@ import com.josephcalver.model.StatusUpdateDao;
 @Service
 public class StatusUpdateService {
 
-	private final static int PAGE_SIZE = 3;
+	private final static int PAGE_SIZE = 10;
 
 	@Autowired
 	private StatusUpdateDao statusUpdateDao;
@@ -31,6 +31,14 @@ public class StatusUpdateService {
 		PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "added");
 
 		return statusUpdateDao.findAll(request);
+	}
+
+	public StatusUpdate get(Long id) {
+		return statusUpdateDao.findOne(id);
+	}
+
+	public void delete(Long id) {
+		statusUpdateDao.delete(id);
 	}
 
 }
