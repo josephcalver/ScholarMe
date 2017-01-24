@@ -40,20 +40,25 @@
 		Network</a>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<sec:authorize access="isAuthenticated()">
-				<li class="nav-item active"><a class="nav-link"
-					href="${contextRoot}/">Home <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item"><a class="nav-link"
-					href="${contextRoot}/about">About</a></li>
+
+			<li class="nav-item active"><a class="nav-link"
+				href="${contextRoot}/">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item"><a class="nav-link"
+				href="${contextRoot}/about">About</a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/addstatus">Add Status</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/viewstatus">View Statuses</a></li>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item"><a class="nav-link"
 					href="javascript:$('#logoutForm').submit()">Log Out</a></li>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/register">Register</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/login">Log In</a></li>
 			</sec:authorize>

@@ -31,4 +31,8 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/login.jsp" />
 	</definition>
 
+	<definition name="register" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/register.jsp" />
+	</definition>
+
 </tiles-definitions>
