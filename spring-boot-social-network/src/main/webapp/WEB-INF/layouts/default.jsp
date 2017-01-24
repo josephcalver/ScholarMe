@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -38,23 +40,38 @@
 		Network</a>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<li class="nav-item active"><a class="nav-link"
-				href="${contextRoot}/">Home <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/about">About</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="${contextRoot}/addstatus">Add Status</a></li>
+			<sec:authorize access="isAuthenticated()">
+				<li class="nav-item active"><a class="nav-link"
+					href="${contextRoot}/">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/about">About</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/addstatus">Add Status</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/viewstatus">View Statuses</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="javascript:$('#logoutForm').submit()">Log Out</a></li>
+			</sec:authorize>
+			<sec:authorize access="!isAuthenticated()">
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/login">Log In</a></li>
+			</sec:authorize>
 		</ul>
 	</div>
 	</nav>
+
+	<c:url var="logoutLink" value="/logout" />
+	<form action="${logoutLink}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
 
 	<div class="container">
 
 		<div id="content">
 			<tiles:insertAttribute name="content" />
 		</div>
-
 	</div>
 
 
