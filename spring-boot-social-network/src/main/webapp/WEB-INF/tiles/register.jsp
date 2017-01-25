@@ -7,8 +7,7 @@
 <c:url var="loginUrl" value="/login" />
 
 <div class="errors">
-	<form:errors path="email" />
-	<form:errors path="password" />
+	<form:errors path="siteUser.*" />
 </div>
 
 <div class="card">
@@ -21,11 +20,11 @@
 					placeholder="Email" />
 			</div>
 			<div class="form-group-row">
-				<form:input class="form-control" type="password" path="password"
-					placeholder="Password" />
+				<form:input class="form-control" type="password"
+					path="plainPassword" placeholder="Password" />
 			</div>
 			<div class="form-group-row">
-				<input class="form-control" type="password" name="repeatPassword"
+				<form:input class="form-control" type="password" path="repeatPassword"
 					placeholder="Repeat Password" />
 			</div>
 			<div class="form-group-row">

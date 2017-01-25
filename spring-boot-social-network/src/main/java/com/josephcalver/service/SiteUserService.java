@@ -21,12 +21,8 @@ public class SiteUserService implements UserDetailsService {
 	@Autowired
 	private SiteUserDao siteUserDao;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
 	public void register(SiteUser siteUser) {
 		siteUser.setRole("ROLE_USER");
-		siteUser.setPassword(passwordEncoder.encode(siteUser.getPassword()));
 		siteUserDao.save(siteUser);
 	}
 
