@@ -18,7 +18,7 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender mailSender;
 
-	@Value("${enable}")
+	@Value("${mail.enable}")
 	private Boolean enable;
 
 	private void send(MimeMessagePreparator preparator) {
@@ -27,7 +27,10 @@ public class EmailService {
 		}
 	}
 
-	public void sendVerificationEmail(String emailAddress) {
+	public void sendVerificationEmail(String emailAddress, String token) {
+
+		// Implement Thymeleaf email template here, and remember to add "token"
+		// to the model so that I can embed in email
 
 		StringBuilder sb = new StringBuilder();
 

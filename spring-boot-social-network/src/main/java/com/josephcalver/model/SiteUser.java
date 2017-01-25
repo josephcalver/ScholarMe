@@ -43,6 +43,9 @@ public class SiteUser {
 	@Column(name = "role", length = 20)
 	private String role;
 
+	@Column(name = "enabled")
+	private Boolean enabled = false;
+
 	public Long getId() {
 		return id;
 	}
@@ -90,6 +93,14 @@ public class SiteUser {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }

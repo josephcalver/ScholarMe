@@ -39,4 +39,9 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/verifyemail.jsp" />
 	</definition>
 
+	<definition name="verificationmessage" extends="default">
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/verificationmessage.jsp" />
+	</definition>
+
 </tiles-definitions>

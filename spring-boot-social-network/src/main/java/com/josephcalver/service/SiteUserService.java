@@ -1,6 +1,7 @@
 package com.josephcalver.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,11 +10,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.josephcalver.model.SiteUser;
 import com.josephcalver.model.SiteUserDao;
+import com.josephcalver.model.VerificationDao;
+import com.josephcalver.model.VerificationToken;
+import com.josephcalver.model.VerificationTokenType;
 
 @Service
 public class SiteUserService implements UserDetailsService {
@@ -21,8 +24,15 @@ public class SiteUserService implements UserDetailsService {
 	@Autowired
 	private SiteUserDao siteUserDao;
 
+	@Autowired
+	private VerificationDao verificationDao;
+
 	public void register(SiteUser siteUser) {
 		siteUser.setRole("ROLE_USER");
+		siteUserDao.save(siteUser);
+	}
+
+	public void save(SiteUser siteUser) {
 		siteUserDao.save(siteUser);
 	}
 
@@ -38,7 +48,19 @@ public class SiteUserService implements UserDetailsService {
 
 		String password = siteUser.getPassword();
 
-		return new User(email, password, auth);
+		Boolean enabled = siteUser.getEnabled();
+
+		return new User(email, password, enabled, true, true, true, auth);
+	}
+
+	public String createEmailVerificationToken(SiteUser siteUser) {
+		VerificationToken token = new VerificationToken(UUID.randomUUID().toString(), siteUser, VerificationTokenType.REGISTRATION);
+		verificationDao.save(token);
+		return token.getToken();
+	}
+	
+	public VerificationToken getVerificationToken(String token) {
+		return verificationDao.findByToken(token);
 	}
 
 }
