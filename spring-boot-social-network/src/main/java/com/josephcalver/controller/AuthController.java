@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.josephcalver.model.SiteUser;
+import com.josephcalver.service.EmailService;
 import com.josephcalver.service.SiteUserService;
 
 @Controller
@@ -18,6 +19,9 @@ public class AuthController {
 
 	@Autowired
 	private SiteUserService siteUserService;
+
+	@Autowired
+	private EmailService emailService;
 
 	@RequestMapping("/login")
 	String admin() {
@@ -39,9 +43,16 @@ public class AuthController {
 
 		if (!result.hasErrors()) {
 			siteUserService.register(siteUser);
+			emailService.sendVerificationEmail(siteUser.getEmail());
 			modelAndView.setViewName("redirect:/");
 		}
 
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/verifyemail")
+	ModelAndView verifyEmail(ModelAndView modelAndView) {
+		modelAndView.setViewName("verifyemail");
 		return modelAndView;
 	}
 
