@@ -74,21 +74,21 @@ public class AuthController {
 
 	@RequestMapping(value = "/registrationconfirmed")
 	ModelAndView registrationConfirmed(ModelAndView modelAndView) {
-		modelAndView.setViewName("verificationmessage");
+		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", registrationConfirmedMessage);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/invaliduser")
 	ModelAndView invalidUser(ModelAndView modelAndView) {
-		modelAndView.setViewName("verificationmessage");
+		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", invalidUserMessage);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/expiredtoken")
 	ModelAndView expiredToken(ModelAndView modelAndView) {
-		modelAndView.setViewName("verificationmessage");
+		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", expiredTokenMessage);
 		return modelAndView;
 	}

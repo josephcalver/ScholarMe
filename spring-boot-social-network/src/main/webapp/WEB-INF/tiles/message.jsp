@@ -6,9 +6,9 @@
 <div class="row">
 
 	<div class="col-md-6 col-md-offset-3 text-center">
-
-		<c:out value="${message}" />
-
+		<div class="message">
+			<c:out value="${message}" />
+		</div>
 	</div>
 
 </div>

@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/",
 						"/about",
 						"/register",
+						"/verifyemail",
+						"/confirmregister",
 						"/registrationconfirmed",
 						"/invaliduser",
 						"/expiredtoken"
@@ -48,15 +50,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/viewstatus"
 						)
 					.hasRole("ADMIN")
-					
-						.and()
+				.anyRequest()
+					.denyAll()
+					.and()
 				.formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/")
-				.permitAll()
-				.and()
-			.logout()
-				.permitAll();
+					.loginPage("/login")
+					.defaultSuccessUrl("/")
+					.permitAll()
+					.and()
+				.logout()
+					.permitAll();
 
 		// @formatter:on
 	}
