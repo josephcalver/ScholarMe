@@ -54,13 +54,18 @@ public class SiteUserService implements UserDetailsService {
 	}
 
 	public String createEmailVerificationToken(SiteUser siteUser) {
-		VerificationToken token = new VerificationToken(UUID.randomUUID().toString(), siteUser, VerificationTokenType.REGISTRATION);
+		VerificationToken token = new VerificationToken(UUID.randomUUID().toString(), siteUser,
+				VerificationTokenType.REGISTRATION);
 		verificationDao.save(token);
 		return token.getToken();
 	}
-	
+
 	public VerificationToken getVerificationToken(String token) {
 		return verificationDao.findByToken(token);
+	}
+
+	public SiteUser get(String email) {
+		return siteUserDao.findByEmail(email);
 	}
 
 }

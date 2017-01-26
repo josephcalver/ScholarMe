@@ -54,6 +54,8 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/profile">My Profile</a></li>
+				<li class="nav-item"><a class="nav-link"
 					href="javascript:$('#logoutForm').submit()">Log Out</a></li>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
