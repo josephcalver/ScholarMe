@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<c:url var="img" value="/img" />
+<c:url var="phofilePhoto" value="/profile-photo" />
 <c:url var="editProfileAbout" value="/editprofileabout" />
 
 <div class="col-md-10 col-md-offset-1">
@@ -13,7 +13,7 @@
 
 		<div class="profile-image">
 
-			<img alt="avatar" src="${img}/avatar.jpg">
+			<img alt="avatar" src="${profilePhoto}">
 
 		</div>
 
@@ -36,6 +36,17 @@
 
 		</div>
 
+		<p>&nbsp;</p>
+
+		<c:url var="uploadPhotoLink" value="/upload-profile-photo" />
+		<form action="${uploadPhotoLink}" method="post"
+			enctype="multipart/form-data">
+
+			Select photo: <input type="file" accept="image/*" name="file" /> <input
+				type="submit" value="Upload" /> <input type="hidden"
+				name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+		</form>
 	</div>
 
 </div>
