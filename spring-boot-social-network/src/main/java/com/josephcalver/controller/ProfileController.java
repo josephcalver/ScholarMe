@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ import com.josephcalver.model.SiteUser;
 import com.josephcalver.service.FileService;
 import com.josephcalver.service.ProfileService;
 import com.josephcalver.service.SiteUserService;
+import com.josephcalver.status.PhotoUploadStatus;
 
 @Controller
 public class ProfileController {
@@ -48,6 +50,18 @@ public class ProfileController {
 
 	@Value(value = "${photo.upload.directory}")
 	private String photoUploadDirectory;
+
+	@Value(value = "${photo.upload.ok}")
+	private String photoStatusOK;
+
+	@Value(value = "${photo.upload.invalid}")
+	private String photoStatusInvalid;
+
+	@Value(value = "${photo.upload.ioexception}")
+	private String photoStatusIOException;
+
+	@Value(value = "${photo.upload.toosmall}")
+	private String photoStatusTooSmall;
 
 	private SiteUser getUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -106,16 +120,19 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/upload-profile-photo", method = RequestMethod.POST)
-	ModelAndView handlePhotoUploads(ModelAndView modelAndView, @RequestParam("file") MultipartFile file) {
-		modelAndView.setViewName("redirect:/profile");
+	@ResponseBody // Return data in JSON format (default type for @ResponseBody)
+	ResponseEntity<PhotoUploadStatus> handlePhotoUploads(@RequestParam("file") MultipartFile file) {
 
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
 		Path oldPhotoPath = profile.getPhoto(photoUploadDirectory);
 
+		PhotoUploadStatus status = new PhotoUploadStatus(photoStatusOK);
+
 		try {
-			FileInfo photoInfo = fileService.saveImageFile(file, photoUploadDirectory, "photos", "p" + user.getId(), 100, 100);
+			FileInfo photoInfo = fileService.saveImageFile(file, photoUploadDirectory, "photos", "p" + user.getId(),
+					100, 100);
 
 			profile.setPhotoDetails(photoInfo);
 			profileService.save(profile);
@@ -125,14 +142,17 @@ public class ProfileController {
 			}
 
 		} catch (InvalidFileException e) {
+			status.setMessage(photoStatusInvalid);
 			e.printStackTrace();
 		} catch (IOException e) {
+			status.setMessage(photoStatusIOException);
 			e.printStackTrace();
 		} catch (ImageTooSmallException e) {
+			status.setMessage(photoStatusTooSmall);
 			e.printStackTrace();
 		}
 
-		return modelAndView;
+		return new ResponseEntity(status, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/profile-photo", method = RequestMethod.GET)
