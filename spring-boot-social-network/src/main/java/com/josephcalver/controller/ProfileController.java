@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,10 +70,14 @@ public class ProfileController {
 		return siteUserService.get(email);
 	}
 
-	@RequestMapping(value = "/profile")
-	ModelAndView showProfile(ModelAndView modelAndView) {
+	private ModelAndView showProfile(SiteUser user) {
+		ModelAndView modelAndView = new ModelAndView();
 
-		SiteUser user = getUser();
+		if (user == null) {
+			modelAndView.setViewName("redirect:/");
+			return modelAndView;
+		}
+
 		Profile profile = profileService.getUserProfile(user);
 
 		if (profile == null) {
@@ -83,9 +88,31 @@ public class ProfileController {
 
 		Profile webProfile = new Profile();
 		webProfile.safeCopyFrom(profile);
-		modelAndView.getModel().put("profile", webProfile);
 
+		modelAndView.getModel().put("userId", user.getId());
+		modelAndView.getModel().put("profile", webProfile);
 		modelAndView.setViewName("profile");
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/profile")
+	ModelAndView showProfile() {
+
+		SiteUser user = getUser();
+
+		ModelAndView modelAndView = showProfile(user);
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/profile/{id}")
+	ModelAndView showProfile(@PathVariable("id") Long id) {
+
+		SiteUser user = siteUserService.get(id);
+
+		ModelAndView modelAndView = showProfile(user);
+
 		return modelAndView;
 	}
 
@@ -155,10 +182,10 @@ public class ProfileController {
 		return new ResponseEntity(status, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/profile-photo", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile-photo/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	ResponseEntity<InputStreamResource> servePhoto() throws IOException {
-		SiteUser user = getUser();
+	ResponseEntity<InputStreamResource> servePhoto(@PathVariable("id") Long id) throws IOException {
+		SiteUser user = siteUserService.get(id);
 		Profile profile = profileService.getUserProfile(user);
 
 		Path photoPath = Paths.get(photoUploadDirectory, "default", "avatar.jpg");

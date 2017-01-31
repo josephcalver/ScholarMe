@@ -68,4 +68,8 @@ public class SiteUserService implements UserDetailsService {
 		return siteUserDao.findByEmail(email);
 	}
 
+	public SiteUser get(Long id) {
+		return siteUserDao.findOne(id);
+	}
+
 }
