@@ -13,6 +13,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -21,9 +23,16 @@
 	crossorigin="anonymous">
 
 <!-- jQuery first, then Tether, then Bootstrap JS. -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <link href="${contextRoot}/css/main.css" rel="stylesheet">
+
+<!-- For javascript tagging on profile.jsp -->
+<link href="${contextRoot}/css/jquery.tagit.css" rel="stylesheet">
+<link href="${contextRoot}/css/tagit.ui-zendesk.css" rel="stylesheet">
+<script src="${contextRoot}/js/jquery-ui.min.js"></script>
+<script src="${contextRoot}/js/tag-it.min.js"></script>
 
 <title><tiles:insertAttribute name="title" /></title>
 

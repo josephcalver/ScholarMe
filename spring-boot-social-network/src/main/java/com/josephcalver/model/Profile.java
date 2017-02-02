@@ -2,16 +2,23 @@ package com.josephcalver.model;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.owasp.html.PolicyFactory;
 
 @Entity
 @Table(name = "profiles")
@@ -38,6 +45,20 @@ public class Profile {
 
 	@Column(name = "photo_extension", length = 5)
 	private String photoExtension;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "profile_interests", joinColumns = { @JoinColumn(name = "profile_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "interest_id") })
+	@OrderColumn(name = "display_order")
+	private Set<Interest> interests;
+
+	public Profile() {
+
+	}
+
+	public Profile(SiteUser user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
@@ -87,15 +108,29 @@ public class Profile {
 		this.photoExtension = photoExtension;
 	}
 
+	public Set<Interest> getInterests() {
+		return interests;
+	}
+
+	public void setInterests(Set<Interest> interests) {
+		this.interests = interests;
+	}
+
+	// Create a profile object that is safe to display via JSP
 	public void safeCopyFrom(Profile other) {
 		if (other.about != null) {
 			this.about = other.about;
 		}
+
+		if (other.interests != null) {
+			this.interests = other.interests;
+		}
 	}
 
-	public void safeMergeWith(Profile webProfile) {
+	// Create a profile object that is suitable for saving
+	public void safeMergeWith(Profile webProfile, PolicyFactory htmlPolicy) {
 		if (webProfile.about != null) {
-			this.about = webProfile.about;
+			this.about = htmlPolicy.sanitize(webProfile.about);
 		}
 	}
 
@@ -112,4 +147,13 @@ public class Profile {
 
 		return Paths.get(baseDirectory, photoDirectory, photoName + "." + photoExtension);
 	}
+
+	public void addInterest(Interest interest) {
+		interests.add(interest);
+	}
+
+	public void removeInterest(String interestName) {
+		interests.remove(new Interest(interestName));
+	}
+
 }

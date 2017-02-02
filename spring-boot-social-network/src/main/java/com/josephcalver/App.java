@@ -1,5 +1,7 @@
 package com.josephcalver;
 
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -51,6 +53,14 @@ public class App {
 				container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/403"));
 			}
 		};
+	}
+	
+	@Bean
+	PolicyFactory getUserHtmlPolicy() {
+		return new HtmlPolicyBuilder()
+				.allowCommonBlockElements()
+				.allowCommonInlineFormattingElements()
+				.toFactory();
 	}
 
 }

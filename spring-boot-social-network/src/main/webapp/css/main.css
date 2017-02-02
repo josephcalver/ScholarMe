@@ -87,3 +87,7 @@ textarea {
 #photoUploadForm {
 	display: none;
 }
+
+div[role=status] {
+	display: none;
+}

@@ -9,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 
 import javax.validation.Valid;
 
+import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -30,9 +31,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.josephcalver.exceptions.ImageTooSmallException;
 import com.josephcalver.exceptions.InvalidFileException;
 import com.josephcalver.model.FileInfo;
+import com.josephcalver.model.Interest;
 import com.josephcalver.model.Profile;
 import com.josephcalver.model.SiteUser;
 import com.josephcalver.service.FileService;
+import com.josephcalver.service.InterestService;
 import com.josephcalver.service.ProfileService;
 import com.josephcalver.service.SiteUserService;
 import com.josephcalver.status.PhotoUploadStatus;
@@ -48,6 +51,12 @@ public class ProfileController {
 
 	@Autowired
 	private FileService fileService;
+
+	@Autowired
+	private InterestService interestService;
+
+	@Autowired
+	private PolicyFactory htmlPolicy;
 
 	@Value(value = "${photo.upload.directory}")
 	private String photoUploadDirectory;
@@ -103,6 +112,8 @@ public class ProfileController {
 
 		ModelAndView modelAndView = showProfile(user);
 
+		modelAndView.getModel().put("ownProfile", true);
+
 		return modelAndView;
 	}
 
@@ -112,6 +123,8 @@ public class ProfileController {
 		SiteUser user = siteUserService.get(id);
 
 		ModelAndView modelAndView = showProfile(user);
+
+		modelAndView.getModel().put("ownProfile", false);
 
 		return modelAndView;
 	}
@@ -136,7 +149,7 @@ public class ProfileController {
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
-		profile.safeMergeWith(webProfile);
+		profile.safeMergeWith(webProfile, htmlPolicy);
 
 		if (!result.hasErrors()) {
 			profileService.save(profile);
@@ -179,7 +192,7 @@ public class ProfileController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity(status, HttpStatus.OK);
+		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/profile-photo/{id}", method = RequestMethod.GET)
@@ -197,6 +210,35 @@ public class ProfileController {
 		return ResponseEntity.ok().contentLength(Files.size(photoPath))
 				.contentType(MediaType.parseMediaType(URLConnection.guessContentTypeFromName(photoPath.toString())))
 				.body(new InputStreamResource(Files.newInputStream(photoPath, StandardOpenOption.READ)));
+	}
+
+	@RequestMapping(value = "/save-interest", method = RequestMethod.POST)
+	@ResponseBody
+	ResponseEntity<?> saveInterest(@RequestParam("name") String interestName) {
+		SiteUser user = getUser();
+		Profile profile = profileService.getUserProfile(user);
+
+		String sanitizedInterestName = htmlPolicy.sanitize(interestName);
+
+		Interest interest = interestService.createIfNotExists(sanitizedInterestName);
+
+		profile.addInterest(interest);
+		profileService.save(profile);
+
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/delete-interest", method = RequestMethod.POST)
+	@ResponseBody
+	ResponseEntity<?> deleteInterest(@RequestParam("name") String interestName) {
+		SiteUser user = getUser();
+		Profile profile = profileService.getUserProfile(user);
+
+		profile.removeInterest(interestName);
+
+		profileService.save(profile);
+
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
 }
