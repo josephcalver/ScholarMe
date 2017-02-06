@@ -30,10 +30,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.josephcalver.exceptions.ImageTooSmallException;
 import com.josephcalver.exceptions.InvalidFileException;
-import com.josephcalver.model.FileInfo;
-import com.josephcalver.model.Interest;
-import com.josephcalver.model.Profile;
-import com.josephcalver.model.SiteUser;
+import com.josephcalver.model.dto.FileInfo;
+import com.josephcalver.model.entity.Interest;
+import com.josephcalver.model.entity.Profile;
+import com.josephcalver.model.entity.SiteUser;
 import com.josephcalver.service.FileService;
 import com.josephcalver.service.InterestService;
 import com.josephcalver.service.ProfileService;

@@ -13,9 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.josephcalver.model.Interest;
-import com.josephcalver.model.Profile;
-import com.josephcalver.model.SiteUser;
+import com.josephcalver.model.entity.Interest;
+import com.josephcalver.model.entity.Profile;
+import com.josephcalver.model.entity.SiteUser;
 import com.josephcalver.service.InterestService;
 import com.josephcalver.service.ProfileService;
 import com.josephcalver.service.SiteUserService;
@@ -36,9 +36,9 @@ public class ProfileTest {
 	private InterestService interestService;
 	
 	private SiteUser[] users = {
-			new SiteUser("testuser1@example.com", "password"),
-			new SiteUser("testuser2@example.com", "password"),
-			new SiteUser("testuser3@example.com", "password"),
+			new SiteUser("testuser1@example.com", "password", "firstname1", "lastname1"),
+			new SiteUser("testuser2@example.com", "password", "firstname2", "lastname2"),
+			new SiteUser("testuser3@example.com", "password", "firstname3", "lastname3"),
 	};
 	
 	private String[][] interests = {

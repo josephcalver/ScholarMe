@@ -54,5 +54,9 @@
 	<definition name="edit-profile-about" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/editprofileabout.jsp" />
 	</definition>
+	
+	<definition name="search-results" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/searchresults.jsp" />
+	</definition>
 
 </tiles-definitions>

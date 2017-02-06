@@ -1,0 +1,18 @@
+package com.josephcalver.model.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.josephcalver.model.entity.Profile;
+import com.josephcalver.model.entity.SiteUser;
+
+@Repository
+public interface ProfileDao extends CrudRepository<Profile, Long> {
+
+	Profile findByUser(SiteUser user);
+
+	List<Profile> findByInterestsNameContainingIgnoreCase(String searchTerm);
+
+}

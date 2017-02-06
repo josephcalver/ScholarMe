@@ -7,8 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.josephcalver.model.StatusUpdate;
-import com.josephcalver.model.StatusUpdateDao;
+import com.josephcalver.model.entity.StatusUpdate;
+import com.josephcalver.model.repository.StatusUpdateDao;
 
 @Service
 public class StatusUpdateService {

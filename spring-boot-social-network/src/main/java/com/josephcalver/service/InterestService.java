@@ -3,8 +3,8 @@ package com.josephcalver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.josephcalver.model.Interest;
-import com.josephcalver.model.InterestDao;
+import com.josephcalver.model.entity.Interest;
+import com.josephcalver.model.repository.InterestDao;
 
 @Service
 public class InterestService {

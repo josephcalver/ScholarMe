@@ -1,4 +1,4 @@
-package com.josephcalver.model;
+package com.josephcalver.model.entity;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.josephcalver.model;
+package com.josephcalver.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +30,14 @@ public class SiteUser {
 	@NotBlank(message = "{register.email.invalid}")
 	private String email;
 
+	@Size(min = 2, max = 20, message = "{register.firstname.size}")
+	@Column(name = "first_name", length = 20)
+	private String firstName;
+
+	@Size(min = 2, max = 25, message = "{register.lastname.size}")
+	@Column(name = "last_name", length = 25)
+	private String lastName;
+
 	@Transient
 	@Size(min = 5, max = 15, message = "{register.password.size}")
 	private String plainPassword;
@@ -50,10 +58,12 @@ public class SiteUser {
 
 	}
 
-	public SiteUser(String email, String password) {
+	public SiteUser(String email, String password, String firstName, String lastName) {
 		this.email = email;
 		this.plainPassword = password;
 		this.repeatPassword = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.enabled = true;
 	}
 
@@ -71,6 +81,22 @@ public class SiteUser {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getPlainPassword() {

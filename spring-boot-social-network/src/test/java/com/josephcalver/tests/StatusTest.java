@@ -14,8 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.josephcalver.model.StatusUpdate;
-import com.josephcalver.model.StatusUpdateDao;
+import com.josephcalver.model.entity.StatusUpdate;
+import com.josephcalver.model.repository.StatusUpdateDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

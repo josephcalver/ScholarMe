@@ -43,7 +43,7 @@
 				<c:choose>
 					<c:when test="${profile.about == null}"> 
 				Click 'edit' to add information about yourself.
-			</c:when>
+					</c:when>
 					<c:otherwise>
 						<c:out value="${profile.about}" />
 					</c:otherwise>

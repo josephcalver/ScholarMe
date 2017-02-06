@@ -1,4 +1,4 @@
-package com.josephcalver.model;
+package com.josephcalver.model.dto;
 
 public class FileInfo {
 

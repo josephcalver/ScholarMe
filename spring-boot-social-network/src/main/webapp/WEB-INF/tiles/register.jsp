@@ -20,12 +20,20 @@
 					placeholder="Email" />
 			</div>
 			<div class="form-group-row">
+				<form:input class="form-control" type="text" path="firstName"
+					placeholder="First name" />
+			</div>
+			<div class="form-group-row">
+				<form:input class="form-control" type="text" path="lastName"
+					placeholder="Surname" />
+			</div>
+			<div class="form-group-row">
 				<form:input class="form-control" type="password"
 					path="plainPassword" placeholder="Password" />
 			</div>
 			<div class="form-group-row">
-				<form:input class="form-control" type="password" path="repeatPassword"
-					placeholder="Repeat Password" />
+				<form:input class="form-control" type="password"
+					path="repeatPassword" placeholder="Repeat Password" />
 			</div>
 			<div class="form-group-row">
 				<button class="btn btn-primary form-control" type="submit">Register</button>

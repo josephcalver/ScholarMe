@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.josephcalver.model.Profile;
-import com.josephcalver.model.ProfileDao;
-import com.josephcalver.model.SiteUser;
+import com.josephcalver.model.entity.Profile;
+import com.josephcalver.model.entity.SiteUser;
+import com.josephcalver.model.repository.ProfileDao;
 
 @Service
 public class ProfileService {

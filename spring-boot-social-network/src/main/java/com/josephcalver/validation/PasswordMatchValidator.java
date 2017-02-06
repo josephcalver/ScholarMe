@@ -3,7 +3,7 @@ package com.josephcalver.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.josephcalver.model.SiteUser;
+import com.josephcalver.model.entity.SiteUser;
 
 public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, SiteUser> {
 

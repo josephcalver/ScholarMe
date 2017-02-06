@@ -20,9 +20,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.josephcalver.model.Interest;
-import com.josephcalver.model.Profile;
-import com.josephcalver.model.SiteUser;
+import com.josephcalver.model.entity.Interest;
+import com.josephcalver.model.entity.Profile;
+import com.josephcalver.model.entity.SiteUser;
 import com.josephcalver.service.InterestService;
 import com.josephcalver.service.ProfileService;
 import com.josephcalver.service.SiteUserService;

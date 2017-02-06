@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.josephcalver.exceptions.ImageTooSmallException;
 import com.josephcalver.exceptions.InvalidFileException;
-import com.josephcalver.model.FileInfo;
+import com.josephcalver.model.dto.FileInfo;
 
 @Service
 public class FileService {
