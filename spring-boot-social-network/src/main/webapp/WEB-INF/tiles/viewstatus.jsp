@@ -4,10 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="jdc"%>
 
+
 <c:url var="url" value="/viewstatus" />
 
 
-<jdc:pagination page="${page}" url="${url}" size="10" />
+<jdc:pagination page="${page}" url="${url}" size="5" />
 
 
 <c:forEach var="statusUpdate" items="${page.content}">

@@ -1,10 +1,10 @@
 package com.josephcalver.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.josephcalver.model.entity.StatusUpdate;
@@ -13,7 +13,8 @@ import com.josephcalver.model.repository.StatusUpdateDao;
 @Service
 public class StatusUpdateService {
 
-	private final static int PAGE_SIZE = 10;
+	@Value("${status.page.size}")
+	private int pageSize;
 
 	@Autowired
 	private StatusUpdateDao statusUpdateDao;
@@ -29,7 +30,7 @@ public class StatusUpdateService {
 	public Page<StatusUpdate> getPage(int pageNumber) {
 
 		// Zero-based, so subtract 1
-		PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "added");
+		PageRequest request = new PageRequest(pageNumber - 1, pageSize, Sort.Direction.DESC, "added");
 
 		return statusUpdateDao.findAll(request);
 	}

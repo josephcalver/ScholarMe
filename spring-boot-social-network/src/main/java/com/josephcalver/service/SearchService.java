@@ -1,24 +1,40 @@
 package com.josephcalver.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.josephcalver.model.dto.SearchResult;
+import com.josephcalver.model.entity.Profile;
 import com.josephcalver.model.repository.ProfileDao;
 
 @Service
 public class SearchService {
+	
+	@Value("${results.page.size}")
+	private int pageSize;
 
 	@Autowired
 	private ProfileDao profileDao;
 
-	public List<SearchResult> search(String searchTerm) {
+	public Page<SearchResult> search(String searchTerm, int pageNumber) {
+		
+		PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 
-		return profileDao.findByInterestsNameContainingIgnoreCase(searchTerm).stream().map(SearchResult::new).collect(Collectors.toList());
+		Page<Profile> results = profileDao.findByInterestsNameContainingIgnoreCase(searchTerm, request);
 
+		Converter<Profile, SearchResult> converter = new Converter<Profile, SearchResult>() {
+			
+			public SearchResult convert(Profile profile) {
+				return new SearchResult(profile);
+			}
+			
+		};
+		
+		return results.map(converter);
 	}
 
 }
