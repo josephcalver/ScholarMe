@@ -74,12 +74,14 @@ public class ProfileController {
 	private String photoStatusTooSmall;
 
 	private SiteUser getUser() {
+				
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		return siteUserService.get(email);
 	}
 
 	private ModelAndView showProfile(SiteUser user) {
+		
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (user == null) {
@@ -88,7 +90,7 @@ public class ProfileController {
 		}
 
 		Profile profile = profileService.getUserProfile(user);
-
+		
 		if (profile == null) {
 			profile = new Profile();
 			profile.setUser(user);
@@ -100,6 +102,7 @@ public class ProfileController {
 
 		modelAndView.getModel().put("userId", user.getId());
 		modelAndView.getModel().put("profile", webProfile);
+				
 		modelAndView.setViewName("profile");
 
 		return modelAndView;
@@ -109,11 +112,11 @@ public class ProfileController {
 	ModelAndView showProfile() {
 
 		SiteUser user = getUser();
-
+		
 		ModelAndView modelAndView = showProfile(user);
 
+		modelAndView.getModel().put("user", user);
 		modelAndView.getModel().put("ownProfile", true);
-
 		return modelAndView;
 	}
 

@@ -9,23 +9,11 @@
 <c:url var="saveInterest" value="/save-interest" />
 <c:url var="deleteInterest" value="/delete-interest" />
 
-<div class="col-md-10 col-md-offset-1">
+<div class="container">
 
-	<div id="profile-photo-status"></div>
+	<div class="col-sm-12">
 
-	<div id="interestDiv">
-		<c:choose>
-			<c:when test="${empty profile.interests}">
-				<input name="tags" id="interestList"
-					value="Add your interests here..." />
-			</c:when>
-			<c:otherwise>
-				<input name="tags" id="interestList"
-					value="<c:forEach var="interest" items="${profile.interests}">${interest.name},</c:forEach>" />
-			</c:otherwise>
-		</c:choose>
-
-		<div class="profile-about">
+		<div class="frame">
 
 			<div class="profile-image">
 				<div>
@@ -38,14 +26,25 @@
 				</div>
 			</div>
 
+			<div class="profile-user-details">
+
+				<h1 class="display-4">${user.firstName} ${user.lastName}</h1>
+				<p>University: ${institutionalAffiliation}</p>
+
+			</div>
+
+			<br /> <br /> <br />
+
 			<div class="profile-text">
 
+				<h4>About ${user.firstName}</h4>
+
 				<c:choose>
-					<c:when test="${profile.about == null}"> 
-				Click 'edit' to add information about yourself.
+					<c:when test="${profile.about == null}">
+						<p>Click 'edit' to add information about yourself.</p>
 					</c:when>
 					<c:otherwise>
-						<c:out value="${profile.about}" />
+						<p><c:out value="${profile.about}" /></p>
 					</c:otherwise>
 				</c:choose>
 
@@ -67,9 +66,28 @@
 						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
 			</div>
+
+<br />
+
+			<div id="interestDiv">
+				<c:choose>
+					<c:when test="${empty profile.interests}">
+						<input name="tags" id="interestList"
+							value="Add your interests here..." />
+					</c:when>
+					<c:otherwise>
+						<input name="tags" id="interestList"
+							value="<c:forEach var="interest" items="${profile.interests}">${interest.name},</c:forEach>" />
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
 </div>
+
+
+
+
 
 <script>
 	function setUploadStatusText(text) {

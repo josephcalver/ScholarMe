@@ -140,4 +140,11 @@ public class SiteUser {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public String toString() {
+		return "SiteUser [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", plainPassword=" + plainPassword + ", repeatPassword=" + repeatPassword + ", password=" + password
+				+ ", role=" + role + ", enabled=" + enabled + "]";
+	}
+
 }

@@ -8,17 +8,23 @@
 	padding-top: 3px;
 }
 
-.navbar .btn {
-	color: white;
-	border-color: white;
+.home-main {
+	padding-top: 150px;
+	text-align: center;
 }
 
 #content {
-	padding-top: 50px;
+	padding-top: 100px;
 }
 
 .page-heading {
 	text-align: center;
+}
+
+.frame {
+	border-radius: 25px;
+	border: 1px grey solid;
+	padding: 35px;
 }
 
 textarea {
@@ -57,17 +63,10 @@ textarea {
 	color: red;
 }
 
-.profile-about {
-	width: 100%;
-	border: 1px solid gray;
-	padding: 50px;
-	overflow: auto;
-}
-
 .profile-image {
 	float: left;
-	margin-right: 10px;
-	margin-bottom: 10px;
+	margin-right: 20px;
+	margin-bottom: 20px;
 }
 
 .profile-about-edit {
