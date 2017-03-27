@@ -69,12 +69,6 @@ textarea {
 	margin-bottom: 20px;
 }
 
-.profile-about-edit {
-	position: absolute;
-	bottom: 0px;
-	right: 50px;
-}
-
 #profile-photo-status {
 	position: absolute;
 	top: 5px;
@@ -85,6 +79,10 @@ textarea {
 
 #photoUploadForm {
 	display: none;
+}
+
+#profile-edit-button {
+	text-align: right;
 }
 
 div[role=status] {

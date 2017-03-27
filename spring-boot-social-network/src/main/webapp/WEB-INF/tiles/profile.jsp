@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <c:url var="profilePhoto" value="/profile-photo/${userId}" />
-<c:url var="editProfileAbout" value="/editprofileabout" />
+<c:url var="editProfileAbout" value="/edit-profile-about" />
 <c:url var="saveInterest" value="/save-interest" />
 <c:url var="deleteInterest" value="/delete-interest" />
 
@@ -26,16 +26,35 @@
 				</div>
 			</div>
 
+			<!-- #photoUploadForm not displayed -->
+			<c:url var="uploadPhotoLink" value="/upload-profile-photo" />
+			<form action="${uploadPhotoLink}" method="post"
+				enctype="multipart/form-data" id="photoUploadForm">
+
+				Select photo: <input type="file" accept="image/*" name="file"
+					id="photoFileInput" /> <input type="submit" value="Upload" /> <input
+					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+
 			<div class="profile-user-details">
 
-				<h1 class="display-4">${user.firstName} ${user.lastName}</h1>
-				<p>University: ${institutionalAffiliation}</p>
+				<h1 class="display-4">${user.firstName}&nbsp;${user.lastName}</h1>
+				<p>
+					University:
+					<%-- ${profile.institutionalAffiliation} --%>
+					<br />Contact:
+					<%-- ${profile.publicEmail} --%>
+				</p>
 
 			</div>
 
-			<br /> <br /> <br />
+			<br />
 
 			<div class="profile-text">
+
+				<h4>Current Research Status</h4>
+
+				<br />
 
 				<h4>About ${user.firstName}</h4>
 
@@ -44,30 +63,17 @@
 						<p>Click 'edit' to add information about yourself.</p>
 					</c:when>
 					<c:otherwise>
-						<p><c:out value="${profile.about}" /></p>
+						<p>
+							<c:out value="${profile.about}" />
+						</p>
 					</c:otherwise>
 				</c:choose>
 
 			</div>
 
-			<div class="profile-about-edit">
-				<c:if test="${ownProfile == true}">
-					<a href="${editProfileAbout}">Edit</a>
-				</c:if>
-			</div>
-
 			<div>
-				<c:url var="uploadPhotoLink" value="/upload-profile-photo" />
-				<form action="${uploadPhotoLink}" method="post"
-					enctype="multipart/form-data" id="photoUploadForm">
-
-					Select photo: <input type="file" accept="image/*" name="file"
-						id="photoFileInput" /> <input type="submit" value="Upload" /> <input
-						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				</form>
+				<h4>Research Interests</h4>
 			</div>
-
-<br />
 
 			<div id="interestDiv">
 				<c:choose>
@@ -80,6 +86,12 @@
 							value="<c:forEach var="interest" items="${profile.interests}">${interest.name},</c:forEach>" />
 					</c:otherwise>
 				</c:choose>
+			</div>
+			<div id="profile-edit-button">
+				<c:if test="${ownProfile == true}">
+					<a class="btn btn-secondary btn-lg" role="button"
+						href="${editProfileAbout}">Edit</a>
+				</c:if>
 			</div>
 		</div>
 	</div>
