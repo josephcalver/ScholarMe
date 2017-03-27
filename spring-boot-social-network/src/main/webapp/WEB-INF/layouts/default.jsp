@@ -57,16 +57,18 @@
 
 		<ul class="nav navbar-nav pull-xs-right">
 
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/addstatus">Add Status</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/viewstatus">View Statuses</a></li>
-			</sec:authorize>
+			</sec:authorize> --%>
 
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/profile">My Profile</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${contextRoot}/users">View All Users</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="javascript:$('#logoutForm').submit()">Log Out</a></li>
 			</sec:authorize>

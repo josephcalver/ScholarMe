@@ -10,17 +10,17 @@
 			<c:out value="${message}" />
 		</div>
 
-		<!-- 
 		
-		Exception: <c:out value="${exception}"} />
-		Failed URL: <c:out value="${url}"} />
+		
+		<%-- Exception: <c:out value="${exception}" />
+		Failed URL: <c:out value="${url}" />
 		Exception Message: <c:out value="${exception.message}" />
 		
 		<c:forEach var="line" items="${exception.stackTrace}">
 			<c:out value="${line}" />
-		</c:forEach>
+		</c:forEach> --%>
 		
-		 -->
+		
 
 	</div>
 

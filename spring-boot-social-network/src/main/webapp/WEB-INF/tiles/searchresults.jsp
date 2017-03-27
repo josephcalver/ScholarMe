@@ -6,30 +6,47 @@
 
 <c:url var="searchUrl" value="/search?s=${s}" />
 
-
 <jdc:pagination page="${page}" url="${searchUrl}" size="5" />
 
-Search results for: ${s}
 
-<c:if test="${empty page.content}">
-	No results
-</c:if>
+<div class="container">
 
-<c:forEach var="result" items="${page.content}">
-	<c:url var="profilePhoto" value="/profile-photo/${result.userId}" />
-	<c:url var="profileLink" value="/profile/${result.userId}" />
-	<div>
-		<a href="${profileLink}"><img id="profilePhoto" alt="avatar"
-			src="${profilePhoto}"></a>
-	</div>
-	<p>
-		<a href="${profileLink}"> ${result.userId} ${result.firstName}
-			${result.lastName} </a>
-	</p>
-	<p>
-		<c:forEach var="interest" items="${result.interests}">
-			<c:url var="interestLink" value="/search?s=${interest.name}" />
-			<a href="${interestLink}"><c:out value="${interest.name}" /></a>
+	<div class="col-sm-12">
+
+		<h4 id="results-page-title">Search results for: <i>${s}</i></h4>
+		<br /> <br />
+
+		<c:if test="${empty page.content}">
+			<h4>No results found</h4>
+		</c:if>
+
+		<c:forEach var="result" items="${page.content}">
+			<c:url var="profilePhoto" value="/profile-photo/${result.userId}" />
+			<c:url var="profileLink" value="/profile/${result.userId}" />
+			<div class="frame">
+				<div class="results-image">
+					<a href="${profileLink}"><img id="profilePhoto" alt="avatar"
+						src="${profilePhoto}"></a>
+				</div>
+				<div class="results-text">
+					<p>
+						Name: <a class="btn btn-secondary" href="${profileLink}">${result.firstName}
+							${result.lastName} </a>
+					</p>
+					<p>
+						Interests:
+						<c:forEach var="interest" items="${result.interests}">
+							<c:url var="interestLink" value="/search?s=${interest.name}" />
+							<a class="btn btn-secondary" href="${interestLink}"><c:out
+									value="${interest.name}" /></a>
+						</c:forEach>
+					</p>
+				</div>
+			</div>
+			<br />
+			<br />
 		</c:forEach>
-	</p>
-</c:forEach>
+
+	</div>
+
+</div>

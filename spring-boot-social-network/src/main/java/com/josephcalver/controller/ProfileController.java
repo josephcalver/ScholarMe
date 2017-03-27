@@ -97,11 +97,13 @@ public class ProfileController {
 			profileService.save(profile);
 		}
 
-		Profile webProfile = new Profile();
-		webProfile.safeCopyFrom(profile);
+//		Profile webProfile = new Profile();
+//		webProfile.safeCopyFrom(profile);
 
 		modelAndView.getModel().put("userId", user.getId());
-		modelAndView.getModel().put("profile", webProfile);
+//		modelAndView.getModel().put("profile", webProfile);
+		modelAndView.getModel().put("profile", profile);
+		modelAndView.getModel().put("user", user);
 				
 		modelAndView.setViewName("profile");
 
@@ -132,33 +134,44 @@ public class ProfileController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/edit-profile-about", method = RequestMethod.GET)
-	ModelAndView editProfileAbout(ModelAndView modelAndView) {
+	@RequestMapping(value = "/edit-profile", method = RequestMethod.GET)
+	ModelAndView editProfile(ModelAndView modelAndView) {
+		
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
+		
+//		System.out.println("******** USER PROFILE: " + profile );
+//		
+//		modelAndView.getModel().put("profile", profile);
 
 		Profile webProfile = new Profile();
 		webProfile.safeCopyFrom(profile);
+		
 		modelAndView.getModel().put("profile", webProfile);
-
-		modelAndView.setViewName("edit-profile-about");
+		modelAndView.setViewName("edit-profile");
+		
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/edit-profile-about", method = RequestMethod.POST)
-	ModelAndView editProfileAbout(ModelAndView modelAndView, @Valid Profile webProfile, BindingResult result) {
-		modelAndView.setViewName("edit-profile-about");
+	@RequestMapping(value = "/edit-profile", method = RequestMethod.POST)
+	ModelAndView editProfile(ModelAndView modelAndView, @Valid Profile webProfile, BindingResult result) {
+		
+		modelAndView.setViewName("edit-profile");
 
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
+//		if (!result.hasErrors()) {
+//			profileService.save(profile);
+//		}
+		
 		profile.safeMergeWith(webProfile, htmlPolicy);
 
 		if (!result.hasErrors()) {
 			profileService.save(profile);
+			modelAndView.setViewName("redirect:/profile");
 		}
 
-		modelAndView.setViewName("redirect:/profile");
 		return modelAndView;
 	}
 

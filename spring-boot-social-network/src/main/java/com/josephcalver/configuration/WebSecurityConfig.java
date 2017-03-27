@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 						"/profile",
 						"/profile/*",
-						"/edit-profile-about",
+						"/edit-profile",
 						"/upload-profile-photo",
 						"/profile-photo/*",
 						"/save-interest",

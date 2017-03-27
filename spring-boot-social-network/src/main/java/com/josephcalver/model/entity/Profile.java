@@ -18,6 +18,8 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.owasp.html.PolicyFactory;
 
 import com.josephcalver.model.dto.FileInfo;
@@ -34,6 +36,19 @@ public class Profile {
 	@OneToOne(targetEntity = SiteUser.class)
 	@JoinColumn(name = "user_id", nullable = false)
 	private SiteUser user;
+
+	@Column(name = "institutional_affiliation", length = 50)
+	@Size(max = 50, message = "{editprofile.institution.size}")
+	private String institutionalAffiliation;
+
+	@Column(name = "field_of_study", length = 30)
+	@Size(max = 30)
+	private String fieldOfStudy;
+
+	@Column(name = "public_email", unique = true)
+	@Email(message = "{register.email.invalid}")
+	@NotBlank(message = "{register.email.invalid}")
+	private String publicEmail;
 
 	@Column(name = "about", length = 5000)
 	@Size(max = 5000, message = "{editprofile.about.size}")
@@ -78,6 +93,30 @@ public class Profile {
 		this.user = user;
 	}
 
+	public String getInstitutionalAffiliation() {
+		return institutionalAffiliation;
+	}
+
+	public void setInstitutionalAffiliation(String institutionalAffiliation) {
+		this.institutionalAffiliation = institutionalAffiliation;
+	}
+
+	public String getFieldOfStudy() {
+		return fieldOfStudy;
+	}
+
+	public void setFieldOfStudy(String fieldOfStudy) {
+		this.fieldOfStudy = fieldOfStudy;
+	}
+
+	public String getPublicEmail() {
+		return publicEmail;
+	}
+
+	public void setPublicEmail(String publicEmail) {
+		this.publicEmail = publicEmail;
+	}
+
 	public String getAbout() {
 		return about;
 	}
@@ -120,6 +159,19 @@ public class Profile {
 
 	// Create a profile object that is safe to display via JSP
 	public void safeCopyFrom(Profile other) {
+		
+		if (other.institutionalAffiliation != null) {
+			this.institutionalAffiliation = other.institutionalAffiliation;
+		}
+		
+		if (other.fieldOfStudy != null) {
+			this.fieldOfStudy = other.fieldOfStudy;
+		}
+		
+		if (other.publicEmail != null) {
+			this.publicEmail = other.publicEmail;
+		}
+		
 		if (other.about != null) {
 			this.about = other.about;
 		}
@@ -131,6 +183,19 @@ public class Profile {
 
 	// Create a profile object that is suitable for saving
 	public void safeMergeWith(Profile webProfile, PolicyFactory htmlPolicy) {
+		
+		if (webProfile.institutionalAffiliation != null) {
+			this.institutionalAffiliation = htmlPolicy.sanitize(webProfile.institutionalAffiliation);
+		}
+		
+		if (webProfile.fieldOfStudy != null) {
+			this.fieldOfStudy = htmlPolicy.sanitize(webProfile.fieldOfStudy);
+		}
+		
+		if (webProfile.publicEmail != null) {
+			this.publicEmail = webProfile.publicEmail;
+		}
+		
 		if (webProfile.about != null) {
 			this.about = htmlPolicy.sanitize(webProfile.about);
 		}
@@ -160,7 +225,8 @@ public class Profile {
 
 	@Override
 	public String toString() {
-		return "Profile [id=" + id + ", user=" + user + ", about=" + about + ", photoDirectory=" + photoDirectory
+		return "Profile [id=" + id + ", user=" + user + ", institutionalAffiliation=" + institutionalAffiliation
+				+ ", publicEmail=" + publicEmail + ", about=" + about + ", photoDirectory=" + photoDirectory
 				+ ", photoName=" + photoName + ", photoExtension=" + photoExtension + ", interests=" + interests + "]";
 	}
 

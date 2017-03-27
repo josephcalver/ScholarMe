@@ -40,9 +40,20 @@ textarea {
 	margin-bottom: 40px;
 }
 
-.homepage-status {
+.home-search-box {
+	margin-top: 100px;
+}
+
+#results-page-title {
 	text-align: center;
-	margin-top: 30px;
+}
+
+.results-image {
+	float: left;
+	padding-right: 35px;
+}
+
+.results-text {
 	font-size: larger;
 }
 
@@ -63,12 +74,6 @@ textarea {
 	color: red;
 }
 
-.profile-image {
-	float: left;
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
 #profile-photo-status {
 	position: absolute;
 	top: 5px;
@@ -77,12 +82,30 @@ textarea {
 	color: blue;
 }
 
-#photoUploadForm {
-	display: none;
+.profile-header {
+	text-align: center;
+	font-size: larger;
+}
+
+#profile-photo {
+	padding-bottom: 10px;
+}
+
+.profile-text {
+	font-size: larger;
 }
 
 #profile-edit-button {
 	text-align: right;
+}
+
+#profile-update-button {
+	text-align: right;
+	padding-top: 15px;
+}
+
+#photoUploadForm {
+	display: none;
 }
 
 div[role=status] {

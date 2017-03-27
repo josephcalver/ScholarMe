@@ -5,100 +5,107 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <c:url var="profilePhoto" value="/profile-photo/${userId}" />
-<c:url var="editProfileAbout" value="/edit-profile-about" />
+<c:url var="editProfile" value="/edit-profile" />
 <c:url var="saveInterest" value="/save-interest" />
 <c:url var="deleteInterest" value="/delete-interest" />
 
 <div class="container">
 
-	<div class="col-sm-12">
+
+	<div class="col-sm-12 offset-sm-0">
 
 		<div class="frame">
 
-			<div class="profile-image">
-				<div>
-					<img id="profilePhoto" alt="avatar" src="${profilePhoto}">
+			<div class="container">
+
+				<div class="profile-header">
+
+					<div id="profile-photo-status"></div>
+
+
+					<div id="profile-photo">
+						<img id="profilePhoto" alt="avatar" src="${profilePhoto}">
+					</div>
+					<div>
+						<c:if test="${ownProfile == true}">
+							<a href="#" id="uploadLink">Upload Photo</a>
+						</c:if>
+					</div>
+					<div>
+						<h1 class="display-4">${user.firstName}&nbsp;${user.lastName}</h1>
+						<p>
+							<b>${profile.institutionalAffiliation}</b>
+						</p>
+					</div>
 				</div>
-				<div class="text-center">
-					<c:if test="${ownProfile == true}">
-						<a href="#" id="uploadLink">Upload Photo</a>
-					</c:if>
-				</div>
-			</div>
-
-			<!-- #photoUploadForm not displayed -->
-			<c:url var="uploadPhotoLink" value="/upload-profile-photo" />
-			<form action="${uploadPhotoLink}" method="post"
-				enctype="multipart/form-data" id="photoUploadForm">
-
-				Select photo: <input type="file" accept="image/*" name="file"
-					id="photoFileInput" /> <input type="submit" value="Upload" /> <input
-					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			</form>
-
-			<div class="profile-user-details">
-
-				<h1 class="display-4">${user.firstName}&nbsp;${user.lastName}</h1>
-				<p>
-					University:
-					<%-- ${profile.institutionalAffiliation} --%>
-					<br />Contact:
-					<%-- ${profile.publicEmail} --%>
-				</p>
-
-			</div>
-
-			<br />
-
-			<div class="profile-text">
-
-				<h4>Current Research Status</h4>
 
 				<br />
 
-				<h4>About ${user.firstName}</h4>
+				<div class="profile-text">
 
-				<c:choose>
-					<c:when test="${profile.about == null}">
-						<p>Click 'edit' to add information about yourself.</p>
-					</c:when>
-					<c:otherwise>
-						<p>
-							<c:out value="${profile.about}" />
-						</p>
-					</c:otherwise>
-				</c:choose>
+					<dl class="row col-sm-10 offset-sm-1">
 
-			</div>
+						<dt class="col-sm-4">Field of Study:</dt>
+						<dd class="col-sm-6">
+							<c:out value="${profile.fieldOfStudy}" />
+						</dd>
+						<dt class="col-sm-4">Contact:</dt>
+						<dd class="col-sm-6">
+							<c:out value="${profile.publicEmail}" />
+						</dd>
 
-			<div>
-				<h4>Research Interests</h4>
-			</div>
+						<dt class="col-sm-4">About ${user.firstName}:</dt>
+						<dd class="col-sm-6">
+							<c:choose>
+								<c:when test="${profile.about == null}">
+									<p>Click 'edit' to add information about yourself.</p>
+								</c:when>
+								<c:otherwise>
+									<p>
+										<c:out value="${profile.about}" />
+									</p>
+								</c:otherwise>
+							</c:choose>
+						</dd>
 
-			<div id="interestDiv">
-				<c:choose>
-					<c:when test="${empty profile.interests}">
-						<input name="tags" id="interestList"
-							value="Add your interests here..." />
-					</c:when>
-					<c:otherwise>
-						<input name="tags" id="interestList"
-							value="<c:forEach var="interest" items="${profile.interests}">${interest.name},</c:forEach>" />
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div id="profile-edit-button">
-				<c:if test="${ownProfile == true}">
-					<a class="btn btn-secondary btn-lg" role="button"
-						href="${editProfileAbout}">Edit</a>
-				</c:if>
+						<dt class="col-sm-4">Research Interests:</dt>
+						<dd class="col-sm-6">
+							<c:choose>
+								<c:when test="${empty profile.interests}">
+									<input name="tags" id="interestList"
+										value="Add your interests here..." />
+								</c:when>
+								<c:otherwise>
+									<input name="tags" id="interestList"
+										value="<c:forEach var="interest" items="${profile.interests}">${interest.name},</c:forEach>" />
+								</c:otherwise>
+							</c:choose>
+						</dd>
+					</dl>
+				</div>
+
+				<div class="row"></div>
+				<div id="profile-edit-button">
+					<c:if test="${ownProfile == true}">
+						<a class="btn btn-secondary" role="button" href="${editProfile}">Edit</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 
+<!-- #photoUploadForm not displayed -->
+<c:url var="uploadPhotoLink" value="/upload-profile-photo" />
+<form action="${uploadPhotoLink}" method="post"
+	enctype="multipart/form-data" id="photoUploadForm">
 
+	Select photo: <input type="file" accept="image/*" name="file"
+		id="photoFileInput" /> <input type="submit" value="Upload" /> <input
+		type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
+<!-- End #photoUpload Form -->
 
 
 <script>
