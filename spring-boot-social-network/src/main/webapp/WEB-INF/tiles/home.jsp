@@ -32,7 +32,6 @@
 					<div class="home-main-text display-4">ScholarMe</div>
 				</div>
 
-
 				<div class="home-search-box">
 					<form action="${search}" method="post">
 						<input type="hidden" name="${_csrf.parameterName}"
@@ -154,13 +153,11 @@
 						</div>
 					</form>
 				</div>
-
 			</div>
 
 		</c:when>
 
 		<c:otherwise>
-
 
 			<div class="col-xs-10 offset-xs-1">
 				<div class="home-main">

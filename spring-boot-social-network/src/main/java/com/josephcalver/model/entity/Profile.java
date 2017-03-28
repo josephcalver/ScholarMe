@@ -157,50 +157,6 @@ public class Profile {
 		this.interests = interests;
 	}
 
-	// Create a profile object that is safe to display via JSP
-	public void safeCopyFrom(Profile other) {
-		
-		if (other.institutionalAffiliation != null) {
-			this.institutionalAffiliation = other.institutionalAffiliation;
-		}
-		
-		if (other.fieldOfStudy != null) {
-			this.fieldOfStudy = other.fieldOfStudy;
-		}
-		
-		if (other.publicEmail != null) {
-			this.publicEmail = other.publicEmail;
-		}
-		
-		if (other.about != null) {
-			this.about = other.about;
-		}
-
-		if (other.interests != null) {
-			this.interests = other.interests;
-		}
-	}
-
-	// Create a profile object that is suitable for saving
-	public void safeMergeWith(Profile webProfile, PolicyFactory htmlPolicy) {
-		
-		if (webProfile.institutionalAffiliation != null) {
-			this.institutionalAffiliation = htmlPolicy.sanitize(webProfile.institutionalAffiliation);
-		}
-		
-		if (webProfile.fieldOfStudy != null) {
-			this.fieldOfStudy = htmlPolicy.sanitize(webProfile.fieldOfStudy);
-		}
-		
-		if (webProfile.publicEmail != null) {
-			this.publicEmail = webProfile.publicEmail;
-		}
-		
-		if (webProfile.about != null) {
-			this.about = htmlPolicy.sanitize(webProfile.about);
-		}
-	}
-
 	public void setPhotoDetails(FileInfo info) {
 		photoDirectory = info.getSubDirectory();
 		photoExtension = info.getExtension();
@@ -221,6 +177,50 @@ public class Profile {
 
 	public void removeInterest(String interestName) {
 		interests.remove(new Interest(interestName));
+	}
+
+	// Create a profile object that is safe to display via JSP
+	public void safeCopyFrom(Profile unsafeProfile) {
+
+		if (unsafeProfile.institutionalAffiliation != null) {
+			this.institutionalAffiliation = unsafeProfile.institutionalAffiliation;
+		}
+
+		if (unsafeProfile.fieldOfStudy != null) {
+			this.fieldOfStudy = unsafeProfile.fieldOfStudy;
+		}
+
+		if (unsafeProfile.publicEmail != null) {
+			this.publicEmail = unsafeProfile.publicEmail;
+		}
+
+		if (unsafeProfile.about != null) {
+			this.about = unsafeProfile.about;
+		}
+
+		if (unsafeProfile.interests != null) {
+			this.interests = unsafeProfile.interests;
+		}
+	}
+
+	// Create a profile object that is suitable for saving
+	public void safeMergeWith(Profile webProfile, PolicyFactory htmlPolicy) {
+
+		if (webProfile.institutionalAffiliation != null) {
+			this.institutionalAffiliation = htmlPolicy.sanitize(webProfile.institutionalAffiliation);
+		}
+
+		if (webProfile.fieldOfStudy != null) {
+			this.fieldOfStudy = htmlPolicy.sanitize(webProfile.fieldOfStudy);
+		}
+
+		if (webProfile.publicEmail != null) {
+			this.publicEmail = webProfile.publicEmail;
+		}
+
+		if (webProfile.about != null) {
+			this.about = htmlPolicy.sanitize(webProfile.about);
+		}
 	}
 
 	@Override

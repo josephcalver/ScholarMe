@@ -21,7 +21,7 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
 		if (plainPassword == null || plainPassword.length() == 0) {
 			return true;
 		}
-		
+
 		if (plainPassword == null || !plainPassword.equals(repeatPassword)) {
 			return false;
 		}

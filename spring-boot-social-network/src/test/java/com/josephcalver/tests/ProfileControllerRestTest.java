@@ -51,36 +51,34 @@ public class ProfileControllerRestTest {
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-	
+
 	@Test
-	@WithMockUser(username="test@example.com")
+	@WithMockUser(username = "test@example.com")
 	public void testSaveAndDeleteInterest() throws Exception {
-		
+
 		String interestText = "interest not in db";
-		
-		mockMvc.perform(post("/save-interest").param("name", interestText)).
-			andExpect(status().isOk());
-		
+
+		mockMvc.perform(post("/save-interest").param("name", interestText)).andExpect(status().isOk());
+
 		Interest interest = interestService.get(interestText);
-		
+
 		assertNotNull("Interest should exist", interest);
 		assertEquals("Retrieved interest text should match", interestText, interest.getName());
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		
+
 		SiteUser user = siteUserService.get(email);
 		Profile profile = profileService.getUserProfile(user);
-		
+
 		assertTrue("Profile should contain interest", profile.getInterests().contains(new Interest(interestText)));
-		
-		mockMvc.perform(post("/delete-interest").param("name", interestText)).
-			andExpect(status().isOk());
-		
+
+		mockMvc.perform(post("/delete-interest").param("name", interestText)).andExpect(status().isOk());
+
 		profile = profileService.getUserProfile(user);
-		
+
 		assertFalse("Profile should not contain interest", profile.getInterests().contains(new Interest(interestText)));
-		
+
 	}
 
 }

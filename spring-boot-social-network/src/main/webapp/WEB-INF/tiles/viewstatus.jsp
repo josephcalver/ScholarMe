@@ -7,7 +7,6 @@
 
 <c:url var="url" value="/viewstatus" />
 
-
 <jdc:pagination page="${page}" url="${url}" size="5" />
 
 
@@ -31,7 +30,5 @@
 			</div>
 		</div>
 	</div>
-
 	<br />
-
 </c:forEach>

@@ -68,7 +68,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="${contextRoot}/profile">My Profile</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${contextRoot}/users">View All Users</a></li>
+					href="${contextRoot}/profiles">Browse All Users</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="javascript:$('#logoutForm').submit()">Log Out</a></li>
 			</sec:authorize>

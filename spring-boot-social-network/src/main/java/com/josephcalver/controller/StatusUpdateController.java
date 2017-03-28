@@ -25,24 +25,27 @@ public class StatusUpdateController {
 	ModelAndView viewStatus(ModelAndView modelAndView, @RequestParam(name = "p", defaultValue = "1") int pageNumber) {
 
 		Page<StatusUpdate> page = statusUpdateService.getPage(pageNumber);
-		modelAndView.getModel().put("page", page);
 
+		modelAndView.getModel().put("page", page);
 		modelAndView.setViewName("viewstatus");
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/addstatus", method = RequestMethod.GET)
 	ModelAndView addStatus(ModelAndView modelAndView, @ModelAttribute("statusUpdate") StatusUpdate statusUpdate) {
-		modelAndView.setViewName("addstatus");
 
 		StatusUpdate latestStatusUpdate = statusUpdateService.getLatest();
+
 		modelAndView.getModel().put("latestStatusUpdate", latestStatusUpdate);
+		modelAndView.setViewName("addstatus");
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/addstatus", method = RequestMethod.POST)
 	ModelAndView addStatus(ModelAndView modelAndView, @Valid StatusUpdate statusUpdate, BindingResult result) {
+
 		modelAndView.setViewName("addstatus");
 
 		if (!result.hasErrors()) {
@@ -51,32 +54,41 @@ public class StatusUpdateController {
 		}
 
 		StatusUpdate latestStatusUpdate = statusUpdateService.getLatest();
+
 		modelAndView.getModel().put("latestStatusUpdate", latestStatusUpdate);
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/editstatus", method = RequestMethod.GET)
 	ModelAndView editStatus(ModelAndView modelAndView, @RequestParam(name = "id") Long id) {
+
 		StatusUpdate statusUpdate = statusUpdateService.get(id);
+
 		modelAndView.getModel().put("statusUpdate", statusUpdate);
 		modelAndView.setViewName("editstatus");
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/editstatus", method = RequestMethod.POST)
 	ModelAndView editStatus(ModelAndView modelAndView, @Valid StatusUpdate statusUpdate, BindingResult result) {
+
 		if (!result.hasErrors()) {
 			statusUpdateService.save(statusUpdate);
 			modelAndView.setViewName("redirect:/viewstatus");
 		}
-		
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/deletestatus", method = RequestMethod.GET)
 	ModelAndView deleteStatus(ModelAndView modelAndView, @RequestParam(name = "id") Long id) {
+
 		statusUpdateService.delete(id);
+
 		modelAndView.setViewName("redirect:/viewstatus");
+
 		return modelAndView;
 	}
 

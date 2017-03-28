@@ -20,10 +20,12 @@ public class StatusUpdateService {
 	private StatusUpdateDao statusUpdateDao;
 
 	public void save(StatusUpdate statusUpdate) {
+
 		statusUpdateDao.save(statusUpdate);
 	}
 
 	public StatusUpdate getLatest() {
+
 		return statusUpdateDao.findFirstByOrderByAddedDesc();
 	}
 
@@ -36,10 +38,12 @@ public class StatusUpdateService {
 	}
 
 	public StatusUpdate get(Long id) {
+
 		return statusUpdateDao.findOne(id);
 	}
 
 	public void delete(Long id) {
+
 		statusUpdateDao.delete(id);
 	}
 

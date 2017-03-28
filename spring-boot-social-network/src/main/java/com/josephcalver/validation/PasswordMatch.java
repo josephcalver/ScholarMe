@@ -12,14 +12,14 @@ import javax.validation.Payload;
 
 @Target(TYPE)
 @Retention(RUNTIME)
-@Constraint(validatedBy=PasswordMatchValidator.class)
+@Constraint(validatedBy = PasswordMatchValidator.class)
 @Documented
 public @interface PasswordMatch {
 
 	String message() default "{error.password.mismatch}";
-	
+
 	Class<?>[] groups() default {};
-	
+
 	Class<? extends Payload>[] payload() default {};
 
 }

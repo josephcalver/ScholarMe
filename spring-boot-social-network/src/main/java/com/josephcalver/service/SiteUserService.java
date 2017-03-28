@@ -28,16 +28,19 @@ public class SiteUserService implements UserDetailsService {
 	private VerificationDao verificationDao;
 
 	public void register(SiteUser siteUser) {
+
 		siteUser.setRole("ROLE_USER");
 		siteUserDao.save(siteUser);
 	}
 
 	public void save(SiteUser siteUser) {
+
 		siteUserDao.save(siteUser);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
 		SiteUser siteUser = siteUserDao.findByEmail(email);
 
 		if (siteUser == null) {
@@ -54,21 +57,27 @@ public class SiteUserService implements UserDetailsService {
 	}
 
 	public String createEmailVerificationToken(SiteUser siteUser) {
+
 		VerificationToken token = new VerificationToken(UUID.randomUUID().toString(), siteUser,
 				VerificationTokenType.REGISTRATION);
+
 		verificationDao.save(token);
+
 		return token.getToken();
 	}
 
 	public VerificationToken getVerificationToken(String token) {
+
 		return verificationDao.findByToken(token);
 	}
 
 	public SiteUser get(String email) {
+
 		return siteUserDao.findByEmail(email);
 	}
 
 	public SiteUser get(Long id) {
+		
 		return siteUserDao.findOne(id);
 	}
 

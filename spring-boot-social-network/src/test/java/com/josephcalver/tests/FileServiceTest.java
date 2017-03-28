@@ -31,6 +31,7 @@ public class FileServiceTest {
 
 	@Test
 	public void testGetExtension() throws Exception {
+
 		Method method = FileService.class.getDeclaredMethod("getFileExtension", String.class);
 		method.setAccessible(true);
 
@@ -42,6 +43,7 @@ public class FileServiceTest {
 
 	@Test
 	public void testIsImageExtension() throws Exception {
+
 		Method method = FileService.class.getDeclaredMethod("isImageExtension", String.class);
 		method.setAccessible(true);
 
@@ -59,6 +61,7 @@ public class FileServiceTest {
 
 	@Test
 	public void testMakeSubdirectory() throws Exception {
+
 		Method method = FileService.class.getDeclaredMethod("makeSubdirectory", String.class, String.class);
 		method.setAccessible(true);
 

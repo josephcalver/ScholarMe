@@ -40,22 +40,26 @@ public class AuthController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	ModelAndView register(ModelAndView modelAndView) {
+
 		SiteUser siteUser = new SiteUser();
+
 		modelAndView.getModel().put("siteUser", siteUser);
 		modelAndView.setViewName("register");
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	ModelAndView register(ModelAndView modelAndView, @ModelAttribute(value = "siteUser") @Valid SiteUser siteUser,
 			BindingResult result) {
+
 		modelAndView.setViewName("register");
 
 		if (!result.hasErrors()) {
 			siteUserService.register(siteUser);
-			
+
 			String token = siteUserService.createEmailVerificationToken(siteUser);
-			
+
 			emailService.sendVerificationEmail(siteUser.getEmail(), token);
 			modelAndView.setViewName("redirect:/verifyemail");
 
@@ -68,28 +72,36 @@ public class AuthController {
 
 	@RequestMapping(value = "/verifyemail")
 	ModelAndView verifyEmail(ModelAndView modelAndView) {
+
 		modelAndView.setViewName("verifyemail");
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/registrationconfirmed")
 	ModelAndView registrationConfirmed(ModelAndView modelAndView) {
+
 		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", registrationConfirmedMessage);
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/invaliduser")
 	ModelAndView invalidUser(ModelAndView modelAndView) {
+
 		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", invalidUserMessage);
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/expiredtoken")
 	ModelAndView expiredToken(ModelAndView modelAndView) {
+
 		modelAndView.setViewName("message");
 		modelAndView.getModel().put("message", expiredTokenMessage);
+
 		return modelAndView;
 	}
 

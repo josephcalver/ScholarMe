@@ -18,7 +18,8 @@ public class SearchController {
 	private SearchService searchService;
 
 	@RequestMapping(value = "/search", method = { RequestMethod.POST, RequestMethod.GET })
-	ModelAndView search(ModelAndView modelAndView, @RequestParam("s") String searchTerm, @RequestParam(name="p", defaultValue="1") int pageNumber) {
+	ModelAndView search(ModelAndView modelAndView, @RequestParam("s") String searchTerm,
+			@RequestParam(name = "p", defaultValue = "1") int pageNumber) {
 
 		Page<SearchResult> results = searchService.search(searchTerm, pageNumber);
 

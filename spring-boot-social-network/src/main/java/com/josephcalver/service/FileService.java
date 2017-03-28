@@ -28,6 +28,7 @@ public class FileService {
 	private Random random = new Random();
 
 	private String getFileExtension(String filename) {
+
 		int dotPosition = filename.lastIndexOf(".");
 
 		if (dotPosition < 0) {
@@ -38,6 +39,7 @@ public class FileService {
 	}
 
 	private boolean isImageExtension(String extension) {
+
 		String testExtension = extension.toLowerCase();
 
 		for (String validExtension : imageExtensions.split(",")) {
@@ -50,6 +52,7 @@ public class FileService {
 	}
 
 	private File makeSubdirectory(String basePath, String prefix) {
+
 		int nDirectory = random.nextInt(1000);
 		String sDirectory = String.format("%s%03d", prefix, nDirectory);
 
@@ -64,6 +67,7 @@ public class FileService {
 
 	public FileInfo saveImageFile(MultipartFile file, String baseDirectory, String subDirPrefix, String filePrefix,
 			int width, int height) throws InvalidFileException, IOException, ImageTooSmallException {
+
 		int nFilename = random.nextInt(1000);
 		String filename = String.format("%s%03d", filePrefix, nFilename);
 

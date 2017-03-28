@@ -13,7 +13,9 @@
 
 	<div class="col-sm-12">
 
-		<h4 id="results-page-title">Search results for: <i>${s}</i></h4>
+		<h4 id="results-page-title">
+			Search results for: <i>${s}</i>
+		</h4>
 		<br /> <br />
 
 		<c:if test="${empty page.content}">
@@ -21,13 +23,16 @@
 		</c:if>
 
 		<c:forEach var="result" items="${page.content}">
+
 			<c:url var="profilePhoto" value="/profile-photo/${result.userId}" />
 			<c:url var="profileLink" value="/profile/${result.userId}" />
+
 			<div class="frame">
 				<div class="results-image">
 					<a href="${profileLink}"><img id="profilePhoto" alt="avatar"
 						src="${profilePhoto}"></a>
 				</div>
+
 				<div class="results-text">
 					<p>
 						Name: <a class="btn btn-secondary" href="${profileLink}">${result.firstName}

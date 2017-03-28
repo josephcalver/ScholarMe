@@ -11,26 +11,33 @@
 </c:if>
 
 <div class="card">
+
 	<h4 class="card-header">User Login</h4>
+
 	<div class="card-block">
-		<form action="${loginUrl}" method="post">
+
+		<form class="form" action="${loginUrl}" method="post">
 
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 
-			<div class="form-group-row">
+			<div class="form-group row">
 				<input class="form-control" type="text" name="username"
 					placeholder="Username" />
 			</div>
-			<div class="form-group-row">
+
+			<div class="form-group row">
 				<input class="form-control" type="password" name="password"
 					placeholder="Password" />
 			</div>
-			<div class="form-group-row">
+
+			<div class="form-group row">
 				<button class="btn btn-primary form-control" type="submit">Log
 					In</button>
 			</div>
+
 		</form>
 
 	</div>
+
 </div>

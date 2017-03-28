@@ -140,6 +140,22 @@ public class SiteUser {
 		this.enabled = enabled;
 	}
 
+	// Create a user object that is safe to display via JSP
+	public void safeCopyFrom(SiteUser unsafeUser) {
+
+		if (unsafeUser.id != null) {
+			this.id = unsafeUser.id;
+		}
+
+		if (unsafeUser.firstName != null) {
+			this.firstName = unsafeUser.firstName;
+		}
+
+		if (unsafeUser.lastName != null) {
+			this.lastName = unsafeUser.lastName;
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "SiteUser [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName

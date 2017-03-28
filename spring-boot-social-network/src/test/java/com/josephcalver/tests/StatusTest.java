@@ -28,6 +28,7 @@ public class StatusTest {
 
 	@Test
 	public void testSave() {
+
 		StatusUpdate status = new StatusUpdate("This is a test status update!");
 
 		statusUpdateDao.save(status);
@@ -42,6 +43,7 @@ public class StatusTest {
 
 	@Test
 	public void testFindLatest() {
+
 		Calendar calendar = Calendar.getInstance();
 
 		StatusUpdate lastStatusUpdate = null;
@@ -52,6 +54,7 @@ public class StatusTest {
 			statusUpdateDao.save(status);
 			lastStatusUpdate = status;
 		}
+
 		StatusUpdate retrieved = statusUpdateDao.findFirstByOrderByAddedDesc();
 		assertEquals("Latest status update", lastStatusUpdate, retrieved);
 	}

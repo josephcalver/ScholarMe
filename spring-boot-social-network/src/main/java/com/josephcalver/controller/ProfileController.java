@@ -13,6 +13,7 @@ import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.josephcalver.exceptions.ImageTooSmallException;
 import com.josephcalver.exceptions.InvalidFileException;
 import com.josephcalver.model.dto.FileInfo;
+import com.josephcalver.model.dto.SearchResult;
 import com.josephcalver.model.entity.Interest;
 import com.josephcalver.model.entity.Profile;
 import com.josephcalver.model.entity.SiteUser;
@@ -74,14 +76,14 @@ public class ProfileController {
 	private String photoStatusTooSmall;
 
 	private SiteUser getUser() {
-				
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		return siteUserService.get(email);
 	}
 
 	private ModelAndView showProfile(SiteUser user) {
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (user == null) {
@@ -90,21 +92,22 @@ public class ProfileController {
 		}
 
 		Profile profile = profileService.getUserProfile(user);
-		
+
 		if (profile == null) {
 			profile = new Profile();
 			profile.setUser(user);
 			profileService.save(profile);
 		}
 
-//		Profile webProfile = new Profile();
-//		webProfile.safeCopyFrom(profile);
+		Profile webProfile = new Profile();
+		webProfile.safeCopyFrom(profile);
 
-		modelAndView.getModel().put("userId", user.getId());
-//		modelAndView.getModel().put("profile", webProfile);
-		modelAndView.getModel().put("profile", profile);
-		modelAndView.getModel().put("user", user);
-				
+		SiteUser webUser = new SiteUser();
+		webUser.safeCopyFrom(user);
+
+		modelAndView.getModel().put("profile", webProfile);
+		modelAndView.getModel().put("user", webUser);
+
 		modelAndView.setViewName("profile");
 
 		return modelAndView;
@@ -114,11 +117,12 @@ public class ProfileController {
 	ModelAndView showProfile() {
 
 		SiteUser user = getUser();
-		
+
 		ModelAndView modelAndView = showProfile(user);
 
 		modelAndView.getModel().put("user", user);
 		modelAndView.getModel().put("ownProfile", true);
+
 		return modelAndView;
 	}
 
@@ -136,35 +140,27 @@ public class ProfileController {
 
 	@RequestMapping(value = "/edit-profile", method = RequestMethod.GET)
 	ModelAndView editProfile(ModelAndView modelAndView) {
-		
+
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
-		
-//		System.out.println("******** USER PROFILE: " + profile );
-//		
-//		modelAndView.getModel().put("profile", profile);
 
 		Profile webProfile = new Profile();
 		webProfile.safeCopyFrom(profile);
-		
+
 		modelAndView.getModel().put("profile", webProfile);
 		modelAndView.setViewName("edit-profile");
-		
+
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit-profile", method = RequestMethod.POST)
 	ModelAndView editProfile(ModelAndView modelAndView, @Valid Profile webProfile, BindingResult result) {
-		
+
 		modelAndView.setViewName("edit-profile");
 
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
-//		if (!result.hasErrors()) {
-//			profileService.save(profile);
-//		}
-		
 		profile.safeMergeWith(webProfile, htmlPolicy);
 
 		if (!result.hasErrors()) {
@@ -214,6 +210,7 @@ public class ProfileController {
 	@RequestMapping(value = "/profile-photo/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	ResponseEntity<InputStreamResource> servePhoto(@PathVariable("id") Long id) throws IOException {
+
 		SiteUser user = siteUserService.get(id);
 		Profile profile = profileService.getUserProfile(user);
 
@@ -231,6 +228,7 @@ public class ProfileController {
 	@RequestMapping(value = "/save-interest", method = RequestMethod.POST)
 	@ResponseBody
 	ResponseEntity<?> saveInterest(@RequestParam("name") String interestName) {
+
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
@@ -247,6 +245,7 @@ public class ProfileController {
 	@RequestMapping(value = "/delete-interest", method = RequestMethod.POST)
 	@ResponseBody
 	ResponseEntity<?> deleteInterest(@RequestParam("name") String interestName) {
+
 		SiteUser user = getUser();
 		Profile profile = profileService.getUserProfile(user);
 
@@ -255,6 +254,18 @@ public class ProfileController {
 		profileService.save(profile);
 
 		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
+	ModelAndView showAllUserProfiles(ModelAndView modelAndView,
+			@RequestParam(name = "p", defaultValue = "1") int pageNumber) {
+
+		Page<SearchResult> page = profileService.findAllProfiles(pageNumber);
+
+		modelAndView.getModel().put("page", page);
+		modelAndView.setViewName("profiles");
+
+		return modelAndView;
 	}
 
 }

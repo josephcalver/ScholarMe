@@ -111,3 +111,8 @@ textarea {
 div[role=status] {
 	display: none;
 }
+
+.about-text {
+	font-size: larger;
+	text-align: center;
+}

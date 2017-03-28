@@ -29,13 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 						"/",
 						"/about",
+						"/preview",
 						"/register",
 						"/verifyemail",
 						"/confirmregister",
 						"/registrationconfirmed",
 						"/invaliduser",
 						"/expiredtoken",
-						"/search"
+						"/loggedout"
 						)
 					.permitAll()
 				.antMatchers(
@@ -45,41 +46,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						)
 					.permitAll()
 				.antMatchers(
-						"/addstatus",
-						"/editstatus",
-						"/deletestatus",
-						"/viewstatus"
-						)
-					.hasRole("ADMIN")
-				.antMatchers(
 						"/profile",
 						"/profile/*",
 						"/edit-profile",
 						"/upload-profile-photo",
 						"/profile-photo/*",
 						"/save-interest",
-						"/delete-interest"
+						"/delete-interest",
+						"/profiles",
+						"/search"
 						)
 					.authenticated()
+				.antMatchers(
+						"/addstatus",
+						"/editstatus",
+						"/deletestatus",
+						"/viewstatus"
+							)
+					.hasRole("ADMIN")
 				.anyRequest()
 					.denyAll()
-					.and()
+				.and()
 				.formLogin()
-					.loginPage("/login")
-					.defaultSuccessUrl("/")
-					.permitAll()
-					.and()
-				.logout()
+						.loginPage("/login")
+						.defaultSuccessUrl("/")
+						.permitAll()
+						.and()
+						.logout()
+						.logoutSuccessUrl("/loggedout")
 					.permitAll();
 
 		// @formatter:on
 	}
-
-	// @Autowired
-	// public void configureGlobal(AuthenticationManagerBuilder auth) throws
-	// Exception {
-	// auth.inMemoryAuthentication().withUser("joseph").password("password").roles("USER");
-	// }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

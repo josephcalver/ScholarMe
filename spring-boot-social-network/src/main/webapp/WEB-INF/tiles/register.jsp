@@ -13,29 +13,29 @@
 <div class="card">
 	<h4 class="card-header">User Login</h4>
 	<div class="card-block">
-		<form:form modelAttribute="siteUser" method="post">
+		<form:form class="form" modelAttribute="siteUser" method="post">
 
-			<div class="form-group-row">
+			<div class="form-group row">
 				<form:input class="form-control" type="text" path="email"
 					placeholder="Email" />
 			</div>
-			<div class="form-group-row">
+			<div class="form-group row">
 				<form:input class="form-control" type="text" path="firstName"
 					placeholder="First name" />
 			</div>
-			<div class="form-group-row">
+			<div class="form-group row">
 				<form:input class="form-control" type="text" path="lastName"
 					placeholder="Surname" />
 			</div>
-			<div class="form-group-row">
+			<div class="form-group row">
 				<form:input class="form-control" type="password"
 					path="plainPassword" placeholder="Password" />
 			</div>
-			<div class="form-group-row">
+			<div class="form-group row">
 				<form:input class="form-control" type="password"
 					path="repeatPassword" placeholder="Repeat Password" />
 			</div>
-			<div class="form-group-row">
+			<div class="form-group row">
 				<button class="btn btn-primary form-control" type="submit">Register</button>
 			</div>
 		</form:form>

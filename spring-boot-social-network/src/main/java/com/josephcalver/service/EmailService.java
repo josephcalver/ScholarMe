@@ -22,9 +22,11 @@ public class EmailService {
 	private Boolean enable;
 
 	private void send(MimeMessagePreparator preparator) {
+		
 		if (enable) {
 			mailSender.send(preparator);
 		}
+		
 	}
 
 	public void sendVerificationEmail(String emailAddress, String token) {

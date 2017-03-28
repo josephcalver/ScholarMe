@@ -9,11 +9,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
-	// mail.smtp.host=mailtrap.io
-	// mail.smtp.port=2525
-	// mail.smtp.user=35c607cb03af4e
-	// mail.smtp.pass=68280328524fac
-
 	@Value("${mail.smtp.host}")
 	private String host;
 

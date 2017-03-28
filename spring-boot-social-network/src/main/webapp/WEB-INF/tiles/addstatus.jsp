@@ -26,7 +26,5 @@
 		<fmt:formatDate pattern="EEEE d MMMM y 'at' H:mm:s"
 			value="${latestStatusUpdate.added}" />
 	</h4>
-	<div class="card-block">
-		${latestStatusUpdate.text}
-	</div>
+	<div class="card-block">${latestStatusUpdate.text}</div>
 </div>

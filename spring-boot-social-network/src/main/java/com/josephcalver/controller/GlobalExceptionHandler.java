@@ -22,27 +22,35 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = MultipartException.class)
 	@ResponseBody
 	String fileUploadHandler(Exception e) {
+
 		e.printStackTrace();
+
 		return "Error occurred uploading file";
 	}
 
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) {
+
 		ModelAndView modelAndView = new ModelAndView();
+
 		modelAndView.getModel().put("message", exceptionMessage);
 		modelAndView.getModel().put("url", req.getRequestURI());
 		modelAndView.getModel().put("exception", e);
 		modelAndView.setViewName("exception");
+
 		return modelAndView;
 	}
 
 	@ExceptionHandler(value = DataIntegrityViolationException.class)
 	public ModelAndView duplicateUserHandler(HttpServletRequest req, Exception e) {
+
 		ModelAndView modelAndView = new ModelAndView();
+
 		modelAndView.getModel().put("message", duplicateUserMessage);
 		modelAndView.getModel().put("url", req.getRequestURI());
 		modelAndView.getModel().put("exception", e);
 		modelAndView.setViewName("exception");
+
 		return modelAndView;
 	}
 
