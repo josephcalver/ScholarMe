@@ -2,7 +2,9 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
+
 	<definition name="default" template="/WEB-INF/layouts/default.jsp">
 		<put-attribute name="title" value="Spring Boot Social Network" />
 	</definition>
@@ -13,6 +15,10 @@
 
 	<definition name="about" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/about.jsp" />
+	</definition>
+	
+	<definition name="preview" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/preview.jsp" />
 	</definition>
 
 	<definition name="addstatus" extends="default">
@@ -50,13 +56,21 @@
 	<definition name="profile" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/profile.jsp" />
 	</definition>
-	
+
 	<definition name="edit-profile" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/editprofile.jsp" />
 	</definition>
-	
+
 	<definition name="search-results" extends="default">
 		<put-attribute name="content" value="/WEB-INF/tiles/searchresults.jsp" />
+	</definition>
+
+	<definition name="profiles" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/profiles.jsp" />
+	</definition>
+
+	<definition name="loggedout" extends="default">
+		<put-attribute name="content" value="/WEB-INF/tiles/loggedout.jsp" />
 	</definition>
 
 </tiles-definitions>
