@@ -7,23 +7,16 @@
 
 
 <c:url var="search" value="/search" />
+<c:url var="searchByField" value="/search-by-field" />
 
-<sec:authorize var="userLoggedIn"
-	access="hasAnyRole('USER', 'ADMIN', 'GUEST_USER')" />
+<sec:authorize var="userLoggedIn" access="isAuthenticated()" />
 
 
 <div class="container">
 
-
 	<c:choose>
 
 		<c:when test="${userLoggedIn}">
-
-			<%-- <div class="col-md-6 col-md-offset-3">
-
-				<div class="homepage-status">${statusUpdate.text}</div>
-
-			</div> --%>
 
 			<div class="col-xs-10 offset-xs-1">
 
@@ -48,7 +41,7 @@
 				</div>
 
 				<div class="home-search-box">
-					<form action="${search}" method="post">
+					<form action="${searchByField}" method="post">
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 						<div class="input-group input-group-lg">
@@ -123,6 +116,7 @@
 								<option value="Middle Eastern & African Studies"
 									label="Middle Eastern & African Studies" />
 								<option value="Music" label="Music" />
+								<option value="Natural Sciences" label="Natural Sciences" />
 								<option value="Nursing" label="Nursing" />
 								<option value="Occupational Therapy"
 									label="Occupational Therapy" />

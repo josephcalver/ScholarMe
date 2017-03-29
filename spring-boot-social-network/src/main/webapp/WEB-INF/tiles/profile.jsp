@@ -33,9 +33,14 @@
 					</div>
 					<div>
 						<h1 class="display-4">${user.firstName}&nbsp;${user.lastName}</h1>
-						<p>
-							<b>${profile.institutionalAffiliation}</b>
-						</p>
+						<c:choose>
+							<c:when test="${profile.institutionalAffiliation == null}">
+								<p>Click 'Edit' to add your institutional affiliation</p>
+							</c:when>
+							<c:otherwise>
+								<p>${profile.institutionalAffiliation}</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 
@@ -47,18 +52,34 @@
 
 						<dt class="col-sm-4">Field of Study:</dt>
 						<dd class="col-sm-6">
-							<c:out value="${profile.fieldOfStudy}" />
+							<c:choose>
+								<c:when test="${profile.fieldOfStudy == null}">
+									<p>Click 'Edit' to add your field of study</p>
+								</c:when>
+								<c:otherwise>
+									<p>${profile.fieldOfStudy}</p>
+								</c:otherwise>
+							</c:choose>
 						</dd>
 						<dt class="col-sm-4">Contact:</dt>
 						<dd class="col-sm-6">
-							<c:out value="${profile.publicEmail}" />
+							<c:choose>
+								<c:when test="${profile.publicEmail == null}">
+									<p>Click 'Edit' to add your public email address</p>
+								</c:when>
+								<c:otherwise>
+									<p>
+										<c:out value="${profile.publicEmail}" />
+									</p>
+								</c:otherwise>
+							</c:choose>
 						</dd>
 
 						<dt class="col-sm-4">About ${user.firstName}:</dt>
 						<dd class="col-sm-6">
 							<c:choose>
 								<c:when test="${profile.about == null}">
-									<p>Click 'edit' to add information about yourself.</p>
+									<p>Click 'Edit' to add information about yourself.</p>
 								</c:when>
 								<c:otherwise>
 									<p>

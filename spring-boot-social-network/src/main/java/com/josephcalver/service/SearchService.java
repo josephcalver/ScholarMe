@@ -38,4 +38,21 @@ public class SearchService {
 		return results.map(converter);
 	}
 
+	public Page<SearchResult> searchByField(String searchTerm, int pageNumber) {
+
+		PageRequest request = new PageRequest(pageNumber - 1, pageSize, Sort.Direction.ASC, "user.lastName");
+
+		Page<Profile> results = profileDao.findByFieldOfStudyContainingIgnoreCase(searchTerm, request);
+
+		Converter<Profile, SearchResult> converter = new Converter<Profile, SearchResult>() {
+
+			public SearchResult convert(Profile profile) {
+				return new SearchResult(profile);
+			}
+
+		};
+
+		return results.map(converter);
+	}
+	
 }

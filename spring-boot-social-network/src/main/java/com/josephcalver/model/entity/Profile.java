@@ -41,13 +41,11 @@ public class Profile {
 	@Size(max = 50, message = "{editprofile.institution.size}")
 	private String institutionalAffiliation;
 
-	@Column(name = "field_of_study", length = 30)
-	@Size(max = 30)
+	@Column(name = "field_of_study", length = 100)
+	@Size(max = 100)
 	private String fieldOfStudy;
 
-	@Column(name = "public_email", unique = true)
-	@Email(message = "{register.email.invalid}")
-	@NotBlank(message = "{register.email.invalid}")
+	@Column(name = "public_email")
 	private String publicEmail;
 
 	@Column(name = "about", length = 5000)

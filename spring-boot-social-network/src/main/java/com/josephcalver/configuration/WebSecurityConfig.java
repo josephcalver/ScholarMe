@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/save-interest",
 						"/delete-interest",
 						"/profiles",
-						"/search"
+						"/search",
+						"/search-by-field"
 						)
 					.authenticated()
 				.antMatchers(

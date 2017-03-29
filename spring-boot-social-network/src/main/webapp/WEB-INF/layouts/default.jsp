@@ -100,6 +100,10 @@
 			<tiles:insertAttribute name="content" />
 		</div>
 
+		<div id="footer">
+			Copyright &copy; 2017 Joseph Calver <br /> www.josephcalver.com
+		</div>
+
 	</div>
 
 

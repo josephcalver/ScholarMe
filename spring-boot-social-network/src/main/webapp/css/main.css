@@ -116,3 +116,10 @@ div[role=status] {
 	font-size: larger;
 	text-align: center;
 }
+
+#footer {
+	text-align: center;
+	margin-top: 25%;
+	position: relative;
+	bottom: 40px;
+}

@@ -103,6 +103,7 @@
 							<form:option value="Middle Eastern & African Studies"
 								label="Middle Eastern & African Studies" />
 							<form:option value="Music" label="Music" />
+							<form:option value="Natural Sciences" label="Natural Sciences" />
 							<form:option value="Nursing" label="Nursing" />
 							<form:option value="Occupational Therapy"
 								label="Occupational Therapy" />

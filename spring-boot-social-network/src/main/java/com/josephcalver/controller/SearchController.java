@@ -21,7 +21,24 @@ public class SearchController {
 	ModelAndView search(ModelAndView modelAndView, @RequestParam("s") String searchTerm,
 			@RequestParam(name = "p", defaultValue = "1") int pageNumber) {
 
+		System.out.println("********* s = " + searchTerm);
+
 		Page<SearchResult> results = searchService.search(searchTerm, pageNumber);
+
+		modelAndView.getModel().put("s", searchTerm);
+		modelAndView.getModel().put("page", results);
+		modelAndView.setViewName("search-results");
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/search-by-field", method = { RequestMethod.POST, RequestMethod.GET })
+	ModelAndView searchByField(ModelAndView modelAndView, @RequestParam("s") String searchTerm,
+			@RequestParam(name = "p", defaultValue = "1") int pageNumber) {
+
+		System.out.println("********* s = " + searchTerm);
+
+		Page<SearchResult> results = searchService.searchByField(searchTerm, pageNumber);
 
 		modelAndView.getModel().put("s", searchTerm);
 		modelAndView.getModel().put("page", results);
