@@ -79,7 +79,7 @@
 						<dd class="col-sm-6">
 							<c:choose>
 								<c:when test="${profile.about == null}">
-									<p>Click 'Edit' to add information about yourself.</p>
+									<p>Click 'Edit' to add information about yourself</p>
 								</c:when>
 								<c:otherwise>
 									<p>

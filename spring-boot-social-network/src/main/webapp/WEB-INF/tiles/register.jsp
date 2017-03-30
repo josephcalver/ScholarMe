@@ -36,7 +36,7 @@
 					path="repeatPassword" placeholder="Repeat Password" />
 			</div>
 			<div class="form-group row">
-				<button class="btn btn-primary form-control" type="submit">Register</button>
+				<button class="btn btn-secondary active form-control" type="submit">Create Account</button>
 			</div>
 		</form:form>
 
