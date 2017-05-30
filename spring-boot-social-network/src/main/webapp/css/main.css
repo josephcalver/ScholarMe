@@ -117,6 +117,10 @@ div[role=status] {
 	text-align: center;
 }
 
+.about-bullets {
+	font-size: larger;
+}
+
 #footer {
 	text-align: center;
 	margin-top: 25%;
